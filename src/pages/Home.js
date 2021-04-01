@@ -12,7 +12,7 @@ function Home() {
                 <h1>Recent Posts</h1>
             </Grid.Row>
             <Grid.Row>
-                {loading ? (
+                {loading || data===undefined ? (
                     <h1>Loading posts..</h1>
                 ) : (
                     data.getPosts &&
