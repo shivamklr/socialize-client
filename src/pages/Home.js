@@ -12,7 +12,7 @@ function Home() {
                 <h1>Recent Posts</h1>
             </Grid.Row>
             <Grid.Row>
-                {loading || data===undefined ? (
+                {loading || data === undefined ? (
                     <h1>Loading posts..</h1>
                 ) : (
                     data.getPosts &&
@@ -27,7 +27,7 @@ function Home() {
     );
 }
 const FETCH_POSTS_QUERY = gql`
-    {
+    query fetchPosts {
         getPosts {
             id
             body
