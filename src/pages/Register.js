@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
-import gql from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 function Register() {
     const [values, setvalues] = useState({
         username: "",
@@ -8,8 +8,15 @@ function Register() {
         password: "",
         confirmPassword: "",
     });
+    const [addUser, { loading }] = useMutation(REGISTER_USER, {
+        update(proxy, result) {
+            console.log(result);
+        },
+        variables: values,
+    });
     const onSubmit = (e) => {
         e.preventDefault();
+        addUser();
     };
     const onChange = (e) => {
         setvalues((prevValues) => ({
@@ -18,7 +25,7 @@ function Register() {
         }));
     };
     return (
-        <div>
+        <div className="form-container">
             <Form onSubmit={onSubmit} noValidate>
                 <h1>Register</h1>
                 <Form.Input
@@ -57,8 +64,26 @@ function Register() {
     );
 }
 const REGISTER_USER = gql`
-    mutation register {
-       
+    mutation register(
+        $username: String!
+        $email: String!
+        $password: String!
+        $confirmPassword: String!
+    ) {
+        register(
+            registerInput: {
+                username: $username
+                email: $email
+                password: $password
+                confirmPassword: $confirmPassword
+            }
+        ) {
+            id
+            email
+            username
+            createdAt
+            token
+        }
     }
 `;
 
