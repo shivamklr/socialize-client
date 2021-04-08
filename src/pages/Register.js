@@ -30,6 +30,7 @@ function Register() {
                 <h1>Register</h1>
                 <Form.Input
                     label="Username"
+                    type = "text"
                     placeholder="Username.."
                     name="username"
                     value={values.username}
@@ -37,6 +38,7 @@ function Register() {
                 />
                 <Form.Input
                     label="Email"
+                    type = "email"
                     placeholder="Email.."
                     name="email"
                     value={values.email}
@@ -44,6 +46,7 @@ function Register() {
                 />
                 <Form.Input
                     label="Password"
+                    type = "password"
                     placeholder="Password.."
                     name="password"
                     value={values.password}
@@ -51,6 +54,7 @@ function Register() {
                 />
                 <Form.Input
                     label="confirm password"
+                    type = "password"
                     placeholder="confirm password.."
                     name="confirmPassword"
                     value={values.confirmPassword}
