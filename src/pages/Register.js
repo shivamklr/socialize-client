@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { gql, useMutation } from "@apollo/client";
-function Register() {
+function Register(props) {
     const [errors, setErrors] = useState({});
     const [values, setvalues] = useState({
         username: "",
@@ -11,10 +11,9 @@ function Register() {
     });
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(proxy, result) {
-            console.log(result);
+            props.history.push('/');
         },
         onError(err) {
-            console.log(err.graphQLErrors[0].extensions.exception.errors);
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
         },
         variables: values,
