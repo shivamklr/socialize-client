@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { gql, useMutation } from "@apollo/client";
+import { useForm } from "../utils/hooks";
 function Register(props) {
     const [errors, setErrors] = useState({});
-    const [values, setvalues] = useState({
+    const { onChange, onSubmit, values } = useForm(registerUser, {
         username: "",
         email: "",
         password: "",
@@ -11,23 +12,16 @@ function Register(props) {
     });
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(proxy, result) {
-            props.history.push('/');
+            props.history.push("/");
         },
         onError(err) {
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
         },
         variables: values,
     });
-    const onSubmit = (e) => {
-        e.preventDefault();
+    function registerUser(){
         addUser();
-    };
-    const onChange = (e) => {
-        setvalues((prevValues) => ({
-            ...prevValues,
-            [e.target.name]: e.target.value,
-        }));
-    };
+    }
     return (
         <div className="form-container">
             <Form
@@ -41,7 +35,7 @@ function Register(props) {
                     type="text"
                     placeholder="Username.."
                     name="username"
-                    error={errors.username?true:false}
+                    error={errors.username ? true : false}
                     value={values.username}
                     onChange={onChange}
                 />
@@ -50,7 +44,7 @@ function Register(props) {
                     type="email"
                     placeholder="Email.."
                     name="email"
-                    error={errors.email?true:false}
+                    error={errors.email ? true : false}
                     value={values.email}
                     onChange={onChange}
                 />
@@ -59,7 +53,7 @@ function Register(props) {
                     type="password"
                     placeholder="Password.."
                     name="password"
-                    error={errors.password?true:false}
+                    error={errors.password ? true : false}
                     value={values.password}
                     onChange={onChange}
                 />
@@ -68,7 +62,7 @@ function Register(props) {
                     type="password"
                     placeholder="confirm password.."
                     name="confirmPassword"
-                    error={errors.confirmPassword?true:false}
+                    error={errors.confirmPassword ? true : false}
                     value={values.confirmPassword}
                     onChange={onChange}
                 />
