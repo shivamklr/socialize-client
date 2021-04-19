@@ -1,15 +1,23 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import { Button, Form } from "semantic-ui-react";
+
 import { useForm } from "../utils/hooks";
+import { FETCH_POSTS_QUERY } from "../utils/graphql";
 function PostForm() {
     const { values, onChange, onSubmit } = useForm(createPostCallback, {
         body: "",
     });
     const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
         variables: values,
-        update(proxy, result) {
-            console.log(result);
+        update(cache, result) {
+            // modifying cache to avoid page refresh
+            const data = cache.readQuery({
+                query: FETCH_POSTS_QUERY,
+            });
+            // console.log({data});
+            const temp = [result.data.createPost, ...data.getPosts];
+            cache.writeQuery({ query: FETCH_POSTS_QUERY, data:{...data, getPosts:{...temp}} });
             values.body = "";
         },
     });
