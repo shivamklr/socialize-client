@@ -31,6 +31,7 @@ function PostForm() {
     });
 
     function createPostCallback() {
+        setError("");
         createPost();
     }
     return (
