@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, Image, Button, Label, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+
+import { AuthContext } from "../context/auth";
 function PostCard({
     post: { body, createdAt, id, username, likeCount, commentCount, likes },
 }) {
     const likePost = () => console.log("Post Liked");
-    const commentOnPost = () => console.log("commented on post");
+    const { user } = useContext(AuthContext);
     return (
         <Card fluid>
             <Card.Content>
@@ -30,7 +32,12 @@ function PostCard({
                         {likeCount}
                     </Label>
                 </Button>
-                <Button as="div" labelPosition="right" onClick={commentOnPost}>
+                <Button
+                    as="div"
+                    labelPosition="right"
+                    as={Link}
+                    to={`/posts/${id}`}
+                >
                     <Button color="blue" basic>
                         <Icon name="comments" />
                     </Button>
@@ -38,6 +45,18 @@ function PostCard({
                         {commentCount}
                     </Label>
                 </Button>
+                {user && user.username === username && (
+                    <Button
+                        as="div"
+                        color="red"
+                        onClick={() =>
+                            console.log("delete post with id: " + id)
+                        }
+                        floated = "right"
+                    >
+                        <Icon name="trash" style={{ margin: 0 }} />
+                    </Button>
+                )}
             </Card.Content>
         </Card>
     );
