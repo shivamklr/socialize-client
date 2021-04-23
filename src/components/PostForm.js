@@ -9,7 +9,7 @@ function PostForm() {
     const { values, onChange, onSubmit } = useForm(createPostCallback, {
         body: "",
     });
-    const [createPost, { data }] = useMutation(CREATE_POST_MUTATION, {
+    const [createPost] = useMutation(CREATE_POST_MUTATION, {
         variables: values,
         update(cache, result) {
             // modifying cache to avoid page refresh
