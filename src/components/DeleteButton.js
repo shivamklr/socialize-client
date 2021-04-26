@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Button, Confirm, Icon } from "semantic-ui-react";
 import { gql, useMutation } from "@apollo/client";
 
-function DeleteButton({ postId }) {
+function DeleteButton({ postId, callback }) {
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [deletePost] = useMutation(DELETE_POST_MUTATION, {
         variables: { postId },
         update() {
             setConfirmOpen(false);
+            if (callback) callback();
             // TODO: Remove post from cache
         },
     });

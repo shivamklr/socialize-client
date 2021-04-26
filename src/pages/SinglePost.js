@@ -1,18 +1,26 @@
 import React, { useContext } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { FETCH_POSTS_QUERY } from "../utils/graphql";
 import { Button, Card, Grid, Icon, Image, Label } from "semantic-ui-react";
 import moment from "moment";
+
 import LikeButton from "../components/LikeButton";
+import DeleteButton from "../components/DeleteButton";
 import { AuthContext } from "../context/auth";
+
 export default function SinglePost(props) {
     const postId = props.match.params.postId;
     let postMarkup;
     const { user } = useContext(AuthContext);
-    const {
-        data: { getPost },
-    } = useQuery(FETCH_POSTS_QUERY, { variables: { postId } });
-    if (!getPost) {
+    const { loading, data } = useQuery(FETCH_POST_QUERY, {
+        variables: { postId },
+        onError(){
+            console.log("Error while deleting in single post");
+        }
+    });
+    function deletePostCallback() {
+        props.history.push("/");
+    }
+    if (loading || data === undefined) {
         postMarkup = <p> Loading post....</p>;
     } else {
         const {
@@ -24,7 +32,7 @@ export default function SinglePost(props) {
             likes,
             likeCount,
             commentCount,
-        } = getPost;
+        } = data.getPost;
         postMarkup = (
             <Grid>
                 <Grid.Row>
@@ -64,6 +72,12 @@ export default function SinglePost(props) {
                                         {commentCount}
                                     </Label>
                                 </Button>
+                                {user && user.username === username && (
+                                    <DeleteButton
+                                        postId={id}
+                                        callback={deletePostCallback}
+                                    />
+                                )}
                             </Card.Content>
                         </Card>
                     </Grid.Column>
@@ -71,6 +85,7 @@ export default function SinglePost(props) {
             </Grid>
         );
     }
+    return postMarkup;
 }
 const FETCH_POST_QUERY = gql`
     query($postId: ID!) {
