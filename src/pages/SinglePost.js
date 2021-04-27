@@ -88,7 +88,7 @@ export default function SinglePost(props) {
     return postMarkup;
 }
 const FETCH_POST_QUERY = gql`
-    query($postId: ID!) {
+    query getPostQuery($postId: ID!) {
         getPost(postId: $postId) {
             id
             body
