@@ -16,11 +16,11 @@ function PostForm() {
             const data = cache.readQuery({
                 query: FETCH_POSTS_QUERY,
             });
-            // console.log({data});
-            const temp = [result.data.createPost, ...data.getPosts];
             cache.writeQuery({
                 query: FETCH_POSTS_QUERY,
-                data: { ...data, getPosts: { ...temp } },
+                data: {
+                    getPosts:[result.data.createPost, ...data.getPosts]
+                },
             });
             values.body = "";
         },
