@@ -13,9 +13,9 @@ export default function SinglePost(props) {
     const { user } = useContext(AuthContext);
     const { loading, data } = useQuery(FETCH_POST_QUERY, {
         variables: { postId },
-        onError(){
+        onError() {
             console.log("Error while deleting in single post");
-        }
+        },
     });
     function deletePostCallback() {
         props.history.push("/");
@@ -80,6 +80,28 @@ export default function SinglePost(props) {
                                 )}
                             </Card.Content>
                         </Card>
+                        {comments.map((comment) => (
+                            <Card fluid key={comment.id}>
+                                <Card.Content>
+                                    {user &&
+                                        user.username === comment.username && (
+                                            <DeleteButton
+                                                postId={id}
+                                                commentId={comment.id}
+                                            ></DeleteButton>
+                                        )}
+                                    <Card.Header>
+                                        {comment.username}
+                                    </Card.Header>
+                                    <Card.Meta>
+                                        {moment(comment.createdAt).fromNow()}
+                                    </Card.Meta>
+                                    <Card.Description>
+                                        {comment.body}
+                                    </Card.Description>
+                                </Card.Content>
+                            </Card>
+                        ))}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
