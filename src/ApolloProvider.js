@@ -8,7 +8,10 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import App from "./App";
 const httpLink = createHttpLink({
-    uri: "http://localhost:5000",
+    uri:
+        process.env.NODE_ENV === "production"
+            ? "https://aqueous-ravine-64756.herokuapp.com/"
+            : "http://localhost:5000",
 });
 const authLink = setContext((_, { headers }) => {
     const token = localStorage.getItem("jsonwebtoken");
