@@ -11,7 +11,7 @@ function Home() {
     const { user } = useContext(AuthContext);
     const { loading, data } = useQuery(FETCH_POSTS_QUERY);
     return (
-        <Grid columns={3}>
+        <Grid columns={3} doubling stackable>
             <Grid.Row className="page-title">
                 <h1>Recent Posts</h1>
             </Grid.Row>
