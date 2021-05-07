@@ -5,8 +5,9 @@
     margin-top: 10px;
 }
 .form-container {
-    width: 400px;
+    width: 100%;
     margin: auto;
+    max-width: 400px;
 }
 .ui.teal.button:focus,
 .ui.teal.buttons .button:focus {
