@@ -46,6 +46,7 @@ function DeleteButton({ postId, commentId, callback }) {
                 open={confirmOpen}
                 onCancel={() => setConfirmOpen(false)}
                 onConfirm={deletePostOrComment}
+                size="mini"
             />
         </>
     );
