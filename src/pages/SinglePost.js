@@ -56,7 +56,7 @@ export default function SinglePost(props) {
         postMarkup = (
             <Grid doubling>
                 <Grid.Row>
-                    <Grid.Column computer={2} tablet={4} mobile={3}>
+                    <Grid.Column computer={3} tablet={4} mobile={3}>
                         <Image
                             src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
                             size="small"
@@ -89,7 +89,7 @@ export default function SinglePost(props) {
                                             )
                                         }
                                     >
-                                        <Button basic color="blue">
+                                        <Button compact basic color="blue">
                                             <Icon name="comments" />
                                         </Button>
                                         <Label

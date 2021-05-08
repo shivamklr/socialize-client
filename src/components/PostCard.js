@@ -29,7 +29,7 @@ function PostCard({
                 <LikeButton user={user} post={{ id, likes, likeCount }} />
                 <MyPopup content="Comment On Post">
                     <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
-                        <Button color="blue" basic>
+                        <Button compact color="blue" basic>
                             <Icon name="comments" />
                         </Button>
                         <Label basic color="blue" pointing="left">

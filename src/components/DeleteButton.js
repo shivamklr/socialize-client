@@ -38,6 +38,8 @@ function DeleteButton({ postId, commentId, callback }) {
                     color="red"
                     onClick={() => setConfirmOpen(true)}
                     floated="right"
+                    compact
+                    inverted
                 >
                     <Icon name="trash" style={{ margin: 0 }} />
                 </Button>
