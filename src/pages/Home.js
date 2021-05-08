@@ -12,7 +12,10 @@ function Home() {
     const { loading, data } = useQuery(FETCH_POSTS_QUERY);
     return (
         <Grid columns={3} doubling stackable>
-            <Grid.Row className="page-title">
+            <Grid.Row only="computer" className="page-title">
+                <h1>Recent Posts</h1>
+            </Grid.Row>
+            <Grid.Row only="tablet" className="page-title">
                 <h1>Recent Posts</h1>
             </Grid.Row>
             <Grid.Row>
@@ -21,8 +24,11 @@ function Home() {
                         <PostForm />
                     </Grid.Column>
                 )}
+                <Grid.Column only="mobile" width={16} textAlign="center">
+                    <h2>Recent Posts</h2>
+                </Grid.Column>
                 {loading || data === undefined ? (
-                    <h1>Loading posts..</h1>
+                    <h1>Loading Recent posts..</h1>
                 ) : (
                     <Transition.Group>
                         {data.getPosts &&
