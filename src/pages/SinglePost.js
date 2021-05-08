@@ -54,16 +54,16 @@ export default function SinglePost(props) {
             commentCount,
         } = data.getPost;
         postMarkup = (
-            <Grid>
+            <Grid doubling>
                 <Grid.Row>
-                    <Grid.Column width={2}>
+                    <Grid.Column computer={2} tablet={4} mobile={3}>
                         <Image
                             src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
                             size="small"
                             float="right"
                         />
                     </Grid.Column>
-                    <Grid.Column width={10}>
+                    <Grid.Column computer={10} tablet={12} mobile={13}>
                         <Card fluid>
                             <Card.Content>
                                 <Card.Header>{username}</Card.Header>
@@ -81,6 +81,7 @@ export default function SinglePost(props) {
                                 <MyPopup content = "Comment on Post">
                                     <Button
                                         as="div"
+                                        compact
                                         labelPosition="right"
                                         onClick={() =>
                                             console.log(
@@ -125,7 +126,7 @@ export default function SinglePost(props) {
                                             />
                                             <button
                                                 type="submit"
-                                                className="ui button teal"
+                                                className="ui button teal minsize"
                                                 disabled={comment.trim() === ""}
                                                 onClick={submitComment}
                                             >
